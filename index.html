@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Into the Forest Adventure Game</title>
+</head>
+<body>
+
+    <p id="output"></p>
+    <input id="input" type="text" placeholder="Enter your action...">
+    <button>Enter</button>
+    <script>
+        //create the map
+
+        var map = [];
+
+        map[0] = "A Mystic Portal";
+        map[1] = "A Crystal Blue Well";
+        map[2] = "A Rustic Cabin";
+        map[3] = "A Wise Alpaca";
+        map[4] = "The winding path";
+        map[5] = "The Cold Mountains";
+        map[6] = "A beaufiful Field of Flowers";
+        map[7] = "The hidden honey bee cave, lurking danger and desire!"
+        map[8] = "A hungry bear";
+
+        //set the player's initital location
+        var mapLocation = 4;
+
+        //Initalize the playersInput
+        var playersInput ="";
+
+        //initialize the gameMessage
+        var gameMessage = "";
+
+        //Create an array of actions that the game understands
+        var actionsIKnow = ["north", "east", "south", "west"];
+        var action = "";
+
+        //input and output fields
+        var output = document.querySelector("#output");
+        var input = document.querySelector("#input");
+
+        //the Button..OMG...the BUTTON!
+        var button = document.querySelector("button");
+        button.style.cursor = "pointer";
+        button.addEventListener("click", clickHandler, false);
+
+
+        //diplay the player's location with this new function.
+        //that take the input and moves the player
+
+        render();
+
+        function clickHandler()
+        {
+            playGame();
+        }
+
+        function playGame()
+        {
+            playersInput = input.value;
+            playersInput = playersInput.toLowerCase();
+
+            gameMessage = "";
+            action = "";
+
+            for(i = 0; i < actionsIKnow.length; i++)
+            {
+                if(playersInput.indexOf(actionsIKnow[i]) !== -1)
+                {
+                    action = actionsIKnow[i];
+                    console.log("player's action: " + action);
+                    break;
+                }
+            }
+
+            //choose the correct action
+            switch(action)
+            {
+                case "north":
+                    mapLocation -= 3;
+                    break;
+
+                case "south":
+                mapLocation += 3;
+                break;
+
+                case "east":
+                    mapLocation += 1;
+                    break;
+
+                case "north":
+                    mapLocation -= 1;
+                    break;
+
+                default:
+                    gameMessage = "I don't understand that.";
+
+            }
+
+            //Render the game
+            render();
+        }
+
+        function render()
+        {
+            output.innerHTML = map[mapLocation];
+
+            //display game message
+            output.innerHTML += "<br><em>" + gameMessage + "</em>";
+        }
+
+    </script>
+
+    
+</body>
+</html>
